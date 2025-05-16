@@ -2,8 +2,8 @@ package com.finanzas.gestor_finanzas.modelo;
 
 
 import com.finanzas.gestor_finanzas.utilidades.Utilidades;
-import validaciones.Validaciones;
 import com.finanzas.gestor_finanzas.excepciones.*;
+import com.finanzas.gestor_finanzas.validaciones.Validaciones;
 
 import java.util.Objects;
 
@@ -16,7 +16,7 @@ public class Usuario {
     private String primerApellido, segundoApellido;
 
     //CONSTRUCTOR COMPLETO
-    public Usuario(int id, String nombreUsuario, String contrasena, String dni, String nombre, String primerApellido, String segundoApellido) throws NombreUsuarioException, ContrasenaException, DniException, ApellidoException, NombreException {
+    public Usuario(int id, String nombreUsuario, String contrasena, String dni, String nombre, String primerApellido, String segundoApellido) throws NombreUsuarioException, ContrasenaException, DniException, NombreApellidoException{
         setId(id);
         setNombreUsuario(nombreUsuario);
         setContrasena(contrasena);
@@ -26,7 +26,7 @@ public class Usuario {
         setSegundoApellido(segundoApellido);
     }
     // CONSTRUCTOR SIN ID (a 0)
-    public Usuario(String nombreUsuario, String contrasena, String dni, String nombre, String primerApellido, String segundoApellido) throws ContrasenaException, DniException, NombreUsuarioException, ApellidoException, NombreException {
+    public Usuario(String nombreUsuario, String contrasena, String dni, String nombre, String primerApellido, String segundoApellido) throws ContrasenaException, DniException, NombreUsuarioException, NombreApellidoException{
         this(0, nombreUsuario, contrasena, dni, nombre, primerApellido, segundoApellido);
     }
 
@@ -38,27 +38,32 @@ public class Usuario {
     public String getNombre() {
 		return nombre;
 	}
-	public void setNombre(String nombre) throws NombreException {
-		if(Validaciones.ValidarNombre(nombre)) throw new NombreException("Nombre inválido.");
-		this.nombre = Utilidades.ordenarUpperLower(nombre);;
+
+    public void setNombre(String nombre) throws NombreApellidoException {
+        boolean esCorrecto = Validaciones.validarNombreOapellido(nombre);
+        if(!esCorrecto) throw  new NombreApellidoException("Nombre inválido.");
+		this.nombre = Utilidades.ordenarUpperLower(nombre);
 	}
 
 	public String getPrimerApellido() {
 		return primerApellido;
 	}
-	public void setPrimerApellido(String primerApellido) throws ApellidoException {
-		if(Validaciones.ValidarApellidos(primerApellido)) throw new ApellidoException("Apellido inválido.");
-		this.primerApellido = Utilidades.ordenarUpperLower(primerApellido);
-		this.primerApellido = primerApellido;
+	public void setPrimerApellido(String primerApellido) throws NombreApellidoException {
+        boolean esCorrecto = Validaciones.validarNombreOapellido(primerApellido);
+        if(!esCorrecto) throw  new NombreApellidoException("Apellido inválido.");
+        this.primerApellido = Utilidades.ordenarUpperLower(primerApellido);
 	}
+
 	public String getSegundoApellido() {
 		return segundoApellido;
 	}
-	public void setSegundoApellido(String segundoApellido) throws ApellidoException {
-		if(Validaciones.ValidarApellidos(segundoApellido)) throw new ApellidoException("Apellido inválido.");
-		
+
+	public void setSegundoApellido(String segundoApellido) throws NombreApellidoException {
+        boolean esCorrecto = Validaciones.validarNombreOapellido(segundoApellido);
+        if(!esCorrecto) throw  new NombreApellidoException("Apellido inválido.");
 		this.segundoApellido = Utilidades.ordenarUpperLower(segundoApellido);
 	}
+
 	public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -81,12 +86,12 @@ public class Usuario {
     }
 
     public void setNombreUsuario(String nombreUsuario) throws NombreUsuarioException{
-        if(!Validaciones.ValidarNombreUsuario(nombreUsuario)) throw  new NombreUsuarioException("El nombre de la cuenta debe ser de entre 4 y 20 carácteres de letras/números.");
+        if(!Validaciones.validarNombreUsuario(nombreUsuario)) throw  new NombreUsuarioException("El nombre de la cuenta debe ser de entre 4 y 20 carácteres de letras/números.");
         this.nombreUsuario = nombreUsuario;
     }
 
     public void setContrasena(String contrasena) throws ContrasenaException {
-        if(!Validaciones.ValidarContrasena(contrasena)) throw new ContrasenaException("La contraseña debe tener mínimo 6 caracteres e incluir al menos un número, una letra mayúscula y minúscula y un caracter especial.");
+        if(!Validaciones.validarContrasena(contrasena)) throw new ContrasenaException("La contraseña debe tener mínimo 6 caracteres e incluir al menos un número, una letra mayúscula y minúscula y un caracter especial.");
         this.contrasena = contrasena;
     }
     

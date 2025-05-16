@@ -2,7 +2,7 @@ package com.finanzas.gestor_finanzas.modelo;
 
 
 import com.finanzas.gestor_finanzas.excepciones.NombreCuentaException;
-import validaciones.Validaciones;
+import com.finanzas.gestor_finanzas.validaciones.Validaciones;
 
 public class Cuenta {
     private int id;
@@ -52,7 +52,7 @@ public class Cuenta {
     }
 
     public void setNombreCuenta(String nombreCuenta) throws NombreCuentaException {
-    	if(!Validaciones.ValidarNombreCuenta(nombreCuenta)) throw new NombreCuentaException("El nombre de la cuenta debe ser de entre 4 y 20 carácteres de letras/números.");
+    	if(!Validaciones.validarNombreCuenta(nombreCuenta)) throw new NombreCuentaException("El nombre de la cuenta debe ser de entre 4 y 20 carácteres de letras/números.");
         this.nombreCuenta = nombreCuenta;
     }
 

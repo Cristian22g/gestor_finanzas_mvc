@@ -17,14 +17,14 @@ public class UsuarioServicio implements IUsuarioServicio {
 
     @Override
     public List<Usuario> obtenerTodos()
-            throws ContrasenaException, DniException, NombreUsuarioException, ApellidoException, NombreException {
+            throws ContrasenaException, DniException, NombreUsuarioException, NombreApellidoException {
 
         return repositorio.obtenerUsuarios();
     }
 
     @Override
     public Usuario obtenerPorId(int id)
-            throws ContrasenaException, DniException, NombreUsuarioException, ApellidoException, NombreException {
+            throws ContrasenaException, DniException, NombreUsuarioException, NombreApellidoException {
 
         List<Usuario> usuarios = repositorio.obtenerUsuarios();
 
@@ -36,7 +36,7 @@ public class UsuarioServicio implements IUsuarioServicio {
 
     @Override
     public Usuario registrarUsuario(String nombre_usuario, String contrasena,String dni, String nombre, String primerApellido, String segundoApellido)
-            throws NombreUsuarioException, ContrasenaException, DniException, ApellidoException, NombreException {
+            throws NombreUsuarioException, ContrasenaException, DniException, NombreApellidoException {
 
         Usuario usuario = new Usuario(nombre_usuario,contrasena,dni,nombre,primerApellido,segundoApellido);
         List<Usuario> usuarios = repositorio.obtenerUsuarios();
@@ -52,7 +52,7 @@ public class UsuarioServicio implements IUsuarioServicio {
 
     @Override
     public boolean eliminarUsuario(int id)
-            throws ContrasenaException, DniException, NombreUsuarioException, ApellidoException, NombreException{
+            throws ContrasenaException, DniException, NombreUsuarioException, NombreApellidoException{
 
         Usuario usuario = obtenerPorId(id);
         if(usuario == null) return false;

@@ -15,7 +15,7 @@ public class UsuarioRepositorio {
 
     public UsuarioRepositorio(){}
 
-    public List<Usuario> obtenerUsuarios() throws ContrasenaException, DniException, NombreUsuarioException, ApellidoException, NombreException {
+    public List<Usuario> obtenerUsuarios() throws ContrasenaException, DniException, NombreUsuarioException, NombreApellidoException {
         String sql = "SELECT id, nombre_usuario, contrasena, dni, nombre, primer_apellido, segundo_apellido FROM USUARIOS";
 
         try(
@@ -79,7 +79,7 @@ public class UsuarioRepositorio {
         }
     }
 
-    private Usuario mapearUsuarios(ResultSet rs) throws NombreUsuarioException, ContrasenaException, DniException, SQLException, ApellidoException, NombreException{
+    private Usuario mapearUsuarios(ResultSet rs) throws NombreUsuarioException, ContrasenaException, DniException, SQLException, NombreApellidoException{
     	int id = rs.getInt("id");
         String nombreUsuario = rs.getString("nombre_usuario");
         String contrasena = rs.getString("contrasena");
