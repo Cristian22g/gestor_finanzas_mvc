@@ -13,10 +13,29 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 import java.util.stream.Stream;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class UsuarioTest {
+
+    @Test
+    void testConstructorCompletoValido() {
+        assertDoesNotThrow(() -> {
+            Usuario u = new Usuario(1, "Juanito12", "@Contrasena4Correct@", "12345678Z", "Juan", "Pérez", "López");
+            assertEquals(1, u.getId());
+            assertEquals("Juanito12", u.getNombreUsuario());
+            assertEquals("12345678Z", u.getDni());
+            assertEquals("Juan", u.getNombre());
+            assertEquals("Pérez", u.getPrimerApellido());
+            assertEquals("López", u.getSegundoApellido());
+        });
+    }
+
+    @Test
+    void testConstructorSinIdValido() {
+        assertDoesNotThrow(() -> {
+            Usuario u = new Usuario("Maria99", "Passw0rd@Segura", "12345678Z", "María", "Gómez", "Sánchez");
+        });
+    }
 
     @ParameterizedTest
     @MethodSource("proveedorDnis")
@@ -45,7 +64,6 @@ class UsuarioTest {
         if(esValido) assertDoesNotThrow(() -> new Usuario("Juanito12","@Contrasena4Correct@", "90123456A", nombreApellido, nombreApellido, nombreApellido));
         else assertThrows(NombreApellidoException.class, () -> new Usuario("Juanito12","@Contrasena4Correct@", "90123456A", nombreApellido, nombreApellido, nombreApellido));
     }
-
 
     // PRUEBAS
     private static Stream<Arguments> proveedorDnis(){
