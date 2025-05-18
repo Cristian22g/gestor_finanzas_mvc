@@ -2,6 +2,7 @@ package com.finanzas.gestor_finanzas.repositorio;
 
 
 import com.finanzas.gestor_finanzas.dao.DBConnection;
+import com.finanzas.gestor_finanzas.excepciones.CantidadException;
 import com.finanzas.gestor_finanzas.excepciones.NombreCuentaException;
 import com.finanzas.gestor_finanzas.modelo.Cuenta;
 
@@ -22,7 +23,11 @@ public class CuentaRepositorio {
                 ResultSet rs = ps.executeQuery()
         ) {
             while (rs.next()) {
-                cuentas.add(mapearCuentas(rs));
+                try {
+                    cuentas.add(mapearCuentas(rs));
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
             }
 
             return cuentas;
@@ -68,7 +73,7 @@ public class CuentaRepositorio {
         }
     }
 
-    public List<Cuenta> obtenerPorUsuarioId(int idUsuario) throws NombreCuentaException {
+    public List<Cuenta> obtenerCuentasPorUsuarioId(int idUsuario) throws NombreCuentaException {
         List<Cuenta> cuentas = new ArrayList<>();
         String sql = "SELECT * FROM cuentas WHERE id_usuario = ?";
 
@@ -83,14 +88,14 @@ public class CuentaRepositorio {
                 cuentas.add(mapearCuentas(rs));
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | CantidadException e) {
             e.printStackTrace();
         }
 
         return cuentas;
     }
 
-    private Cuenta mapearCuentas(ResultSet rs) throws NombreCuentaException, SQLException{
+    private Cuenta mapearCuentas(ResultSet rs) throws NombreCuentaException, SQLException, CantidadException {
     	return new Cuenta(
                 rs.getInt("id"),
                 rs.getInt("id_usuario"),

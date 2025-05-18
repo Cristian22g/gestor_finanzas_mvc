@@ -30,7 +30,8 @@ public class CuentaServicio implements ICuentaServicio{
 	}
 
 	@Override
-	public Cuenta registrarCuenta(Cuenta cuenta) throws NombreCuentaException {
+	public Cuenta registrarCuenta(int idUsuario, String nombreCuenta, double saldoActual) throws NombreCuentaException, CantidadException {
+		Cuenta cuenta = new Cuenta(idUsuario, nombreCuenta, saldoActual);
 		List<Cuenta> cuentas = repositorio.obtenerCuentas();
 		
 		Cuenta disponible = cuentas.stream()

@@ -3,6 +3,7 @@ package com.finanzas.gestor_finanzas.repositorio;
 
 
 import com.finanzas.gestor_finanzas.dao.DBConnection;
+import com.finanzas.gestor_finanzas.excepciones.CantidadException;
 import com.finanzas.gestor_finanzas.modelo.Transaccion;
 
 import java.sql.Connection;
@@ -29,12 +30,11 @@ public class TransaccionRepositorio {
 
             List<Transaccion> transacciones = new ArrayList<Transaccion>();
 
-            while (rs.next()){
+            while (rs.next()) {
                 transacciones.add(mapearTransaccion(rs));
             }
-            return transacciones;
-
-        } catch (SQLException e) {
+            return  transacciones;
+        } catch (SQLException | CantidadException e) {
             System.out.println(e.getMessage());
             return Collections.emptyList();
         }
@@ -57,7 +57,7 @@ public class TransaccionRepositorio {
             }
             return transacciones;
 
-        } catch (SQLException e) {
+        } catch (SQLException | CantidadException e) {
             System.out.println(e.getMessage());
             return Collections.emptyList();
         }
@@ -105,6 +105,8 @@ public class TransaccionRepositorio {
                 while (rs.next()) {
                     transacciones.add(mapearTransaccion(rs));
                 }
+            } catch (CantidadException e) {
+                System.out.println(e.getMessage());
             }
             return transacciones;
 
@@ -132,7 +134,7 @@ public class TransaccionRepositorio {
             }
             return transacciones;
 
-        } catch (SQLException e) {
+        } catch (SQLException | CantidadException e) {
             System.out.println(e.getMessage());
             return Collections.emptyList();
         }
@@ -154,6 +156,8 @@ public class TransaccionRepositorio {
                 while (rs.next()) {
                     transacciones.add(mapearTransaccion(rs));
                 }
+            } catch (CantidadException e) {
+                System.out.println(e.getMessage());
             }
             return transacciones;
         } catch (SQLException e) {
@@ -180,7 +184,7 @@ public class TransaccionRepositorio {
 	                }
 	            }
 	            return transacciones;
-	        } catch (SQLException e) {
+	        } catch (SQLException | CantidadException e) {
 	            System.out.println(e.getMessage());
 	            return Collections.emptyList();
 	        }
@@ -204,7 +208,7 @@ public class TransaccionRepositorio {
         }
     }
 
-    private Transaccion mapearTransaccion(ResultSet rs) throws SQLException {
+    private Transaccion mapearTransaccion(ResultSet rs) throws SQLException, CantidadException {
         int id = rs.getInt("id");
         int idUsuario = rs.getInt("id_usuario");
         double monto = rs.getDouble("monto");

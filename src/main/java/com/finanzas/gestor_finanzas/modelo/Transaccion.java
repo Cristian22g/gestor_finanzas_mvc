@@ -1,5 +1,7 @@
 package com.finanzas.gestor_finanzas.modelo;
 
+import com.finanzas.gestor_finanzas.excepciones.CantidadException;
+
 import java.time.LocalDate;
 
 public class Transaccion {
@@ -14,19 +16,19 @@ public class Transaccion {
 
     // CONSTRUCTOR COMPLETO
     public Transaccion(int id, int idUsuario, double monto, String tipo,
-                       String categoria, String descripcion, LocalDate fecha) {
-        this.id = id;
-        this.idUsuario = idUsuario;
-        this.monto = monto;
-        this.tipo = tipo;
-        this.categoria = categoria;
-        this.descripcion = descripcion;
-        this.fecha = fecha;
+                       String categoria, String descripcion, LocalDate fecha) throws CantidadException {
+        setId(id);
+        setIdUsuario(idUsuario);
+        setMonto(monto);
+        setTipo(tipo);
+        setCategoria(categoria);
+        setDescripcion(descripcion);
+        setFecha(fecha);
     }
 
     // CONSTRUCTOR SIN ID (a 0)
     public Transaccion(int idUsuario, double monto, String tipo,
-                       String categoria, String descripcion, LocalDate fecha) {
+                       String categoria, String descripcion, LocalDate fecha) throws CantidadException {
         this(0, idUsuario, monto, tipo, categoria, descripcion, fecha);
     }
 
@@ -68,8 +70,10 @@ public class Transaccion {
         this.idUsuario = idUsuario;
     }
 
-    public void setMonto(double monto) {
+    public void setMonto(double monto) throws  CantidadException{
+        if(monto < 0) throw new CantidadException("EL monto no puede ser inferior a 0.");
         this.monto = monto;
+
     }
 
     public void setTipo(String tipo) {

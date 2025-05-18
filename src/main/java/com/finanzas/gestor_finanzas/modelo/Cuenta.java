@@ -1,6 +1,7 @@
 package com.finanzas.gestor_finanzas.modelo;
 
 
+import com.finanzas.gestor_finanzas.excepciones.CantidadException;
 import com.finanzas.gestor_finanzas.excepciones.NombreCuentaException;
 import com.finanzas.gestor_finanzas.validaciones.Validaciones;
 
@@ -14,7 +15,7 @@ public class Cuenta {
     public Cuenta() {}
     
     // CONSTRUCTOR COMPLETO
-    public Cuenta(int id, int idUsuario, String nombreCuenta, double saldoActual) throws NombreCuentaException {
+    public Cuenta(int id, int idUsuario, String nombreCuenta, double saldoActual) throws NombreCuentaException, CantidadException {
        	setId(id);
         setIdUsuario(idUsuario);
         setNombreCuenta(nombreCuenta);
@@ -22,7 +23,7 @@ public class Cuenta {
     }
 
     // CONSTRUCTOR SIN ID (a 0)
-    public Cuenta(int idUsuario, String nombreCuenta, double saldoActual) throws NombreCuentaException {
+    public Cuenta(int idUsuario, String nombreCuenta, double saldoActual) throws NombreCuentaException, CantidadException {
         this(0, idUsuario, nombreCuenta, saldoActual);
     }
 
@@ -56,7 +57,8 @@ public class Cuenta {
         this.nombreCuenta = nombreCuenta;
     }
 
-    public void setSaldoActual(double saldoActual) {
+    public void setSaldoActual(double saldoActual) throws CantidadException {
+        if(saldoActual < 0) throw new CantidadException("El saldo no puede ser inferior a 0");
         this.saldoActual = saldoActual;
     }
 

@@ -1,5 +1,6 @@
 package com.finanzas.gestor_finanzas.modelo;
 
+import com.finanzas.gestor_finanzas.excepciones.CantidadException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ class TransaccionTest {
     private Transaccion transaccionSinId;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws CantidadException {
         transaccionCompleta = new Transaccion(1, 10, 100.5, "INGRESO", "Salario", "Pago mensual", LocalDate.of(2024, 5, 10));
         transaccionSinId = new Transaccion(10, 50.0, "GASTO", "Comida", "Cena en restaurante", LocalDate.of(2024, 5, 12));
     }
@@ -41,7 +42,7 @@ class TransaccionTest {
     }
 
     @Test
-    void testSetters() {
+    void testSetters() throws CantidadException {
         transaccionSinId.setId(5);
         transaccionSinId.setIdUsuario(20);
         transaccionSinId.setMonto(75.0);
@@ -60,13 +61,12 @@ class TransaccionTest {
     }
 
     @Test
-    void testValoresNegativosPermitidos() {
-        Transaccion t = new Transaccion(5, -99.0, "GASTO", "Prueba", "Descripción", LocalDate.now());
-        assertEquals(-99.0, t.getMonto());
+    void testMontoNegativoNoPermitido() {
+       assertThrows(CantidadException.class, () -> new Transaccion(5, -99.0, "GASTO", "Prueba", "Descripción", LocalDate.now()));
     }
 
     @Test
-    void testCamposNullPosibles() {
+    void testCamposNullPosibles() throws CantidadException {
         Transaccion t = new Transaccion(1, 100.0, null, null, null, LocalDate.now());
         assertNull(t.getTipo());
         assertNull(t.getCategoria());

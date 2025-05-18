@@ -27,7 +27,7 @@ public class Validaciones {
     }
     
     public static boolean validarNombreCuenta(String nombreCuenta){
-    	return nombreCuenta.matches("[^[a-zA-Z0-9]{4,20}$]");
+    	return nombreCuenta.matches("^[a-zA-Z0-9 ]{4,20}$");
     }
     
     public static boolean validarNombreOapellido(String nombre){
