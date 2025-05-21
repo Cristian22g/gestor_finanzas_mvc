@@ -15,10 +15,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Repositorio encargado del acceso a los datos relacionados con las transacciones financieras.
+ */
 public class TransaccionRepositorio {
 
     public TransaccionRepositorio(){}
 
+    /**
+     * Repositorio encargado del acceso a los datos relacionados con las transacciones financieras.
+     */
     public List<Transaccion> obtenerTransacciones(){
         String sql = "SELECT * FROM TRANSACCIONES";
 
@@ -40,6 +46,12 @@ public class TransaccionRepositorio {
         }
     }
 
+    /**
+     * Obtiene las transacciones de un usuario específico.
+     *
+     * @param idUsuario ID del usuario.
+     * @return Lista de transacciones del usuario.
+     */
     public List<Transaccion> obtenerTransaccionesPorUsuario(int idUsuario) {
         String sql = "SELECT * FROM transacciones WHERE id_usuario = ?";
         List<Transaccion> transacciones = new ArrayList<>();
@@ -64,6 +76,12 @@ public class TransaccionRepositorio {
 
     }
 
+    /**
+     * Registra una nueva transacción.
+     *
+     * @param transaccion Objeto {@code Transaccion} a registrar.
+     * @return La transacción registrada.
+     */
     public Transaccion registrarTransaccion(Transaccion transaccion) {
         String sql = "INSERT INTO transacciones (id_usuario, monto, tipo, categoria, descripcion, fecha) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
@@ -90,6 +108,13 @@ public class TransaccionRepositorio {
         }
     }
 
+    /**
+     * Obtiene transacciones por usuario y categoría.
+     *
+     * @param idUsuario ID del usuario.
+     * @param categoria Categoría a filtrar.
+     * @return Lista de transacciones coincidentes.
+     */
     public List<Transaccion> obtenerPorCategoriaUsuario(int idUsuario, String categoria) {
         String sql = "SELECT * FROM transacciones WHERE id_usuario = ? AND categoria = ?";
         List<Transaccion> transacciones = new ArrayList<>();
@@ -115,8 +140,14 @@ public class TransaccionRepositorio {
             return Collections.emptyList();
         }
     }
-    
 
+
+    /**
+     * Obtiene transacciones por categoría.
+     *
+     * @param categoria Categoría a filtrar.
+     * @return Lista de transacciones.
+     */
 	public List<Transaccion> obtenerPorCategoria(String categoria) {
         String sql = "SELECT * FROM transacciones WHERE categoria = ?";
         List<Transaccion> transacciones = new ArrayList<>();
@@ -140,6 +171,14 @@ public class TransaccionRepositorio {
         }
 	}
 
+    /**
+     * Obtiene transacciones de un usuario en un rango de fechas.
+     *
+     * @param idUsuario ID del usuario.
+     * @param desde Fecha de inicio.
+     * @param hasta Fecha de fin.
+     * @return Lista de transacciones en ese rango.
+     */
     public List<Transaccion> obtenerPorFechaUsuario(int idUsuario, LocalDate fechaInicio, LocalDate fechaFin) {
         String sql = "SELECT * FROM transacciones WHERE id_usuario = ? AND fecha BETWEEN ? AND ?";
         List<Transaccion> transacciones = new ArrayList<>();
@@ -165,8 +204,15 @@ public class TransaccionRepositorio {
             return Collections.emptyList();
         }
     }
-    
 
+
+    /**
+     * Obtiene transacciones en un rango de fechas.
+     *
+     * @param fechaInicio Fecha de inicio.
+     * @param fechaFin Fecha de fin.
+     * @return Lista de transacciones.
+     */
 	public List<Transaccion> obtenerPorFecha(LocalDate fechaInicio, LocalDate fechaFin) {
 		 String sql = "SELECT * FROM transacciones WHERE fecha BETWEEN ? AND ?";
 	        List<Transaccion> transacciones = new ArrayList<>();
@@ -191,6 +237,12 @@ public class TransaccionRepositorio {
 
 	}
 
+    /**
+     * Elimina una transacción por su ID.
+     *
+     * @param id ID de la transacción a eliminar.
+     * @return {@code true} si fue eliminada, {@code false} en caso contrario.
+     */
     public boolean eliminarTransaccion(int id) {
         String sql = "DELETE FROM transacciones WHERE id = ?";
 
@@ -208,6 +260,12 @@ public class TransaccionRepositorio {
         }
     }
 
+/**
+ * Devuelve un objeto {@code Transaccion} a partir de un objeto {@code ResultSet}.
+ *
+ * @return Transaccion
+ * @param rs ResultSet.
+ */
     private Transaccion mapearTransaccion(ResultSet rs) throws SQLException, CantidadException {
         int id = rs.getInt("id");
         int idUsuario = rs.getInt("id_usuario");

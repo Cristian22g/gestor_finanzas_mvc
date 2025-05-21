@@ -11,8 +11,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Repositorio encargado de gestionar el acceso a datos relacionados con cuentas financieras.
+ */
 public class CuentaRepositorio {
 
+    /**
+     * Obtiene todas las cuentas registradas.
+     *
+     * @return Lista de cuentas.
+     */
     public List<Cuenta> obtenerCuentas() throws NombreCuentaException {
         List<Cuenta> cuentas = new ArrayList<>();
         String sql = "SELECT * FROM cuentas";
@@ -37,6 +45,12 @@ public class CuentaRepositorio {
         }
     }
 
+    /**
+     * Registra una nueva cuenta.
+     *
+     * @param cuenta Objeto {@code Cuenta} a registrar.
+     * @return La cuenta registrada.
+     */
     public Cuenta registrarCuenta(Cuenta cuenta) {
         String sql = "INSERT INTO cuentas (id_usuario, nombre_cuenta, saldo_actual) VALUES (?, ?, ?)";
 
@@ -57,6 +71,12 @@ public class CuentaRepositorio {
         }
     }
 
+    /**
+     * Elimina una cuenta por su ID.
+     *
+     * @param id ID de la cuenta a eliminar.
+     * @return {@code true} si se eliminó correctamente, {@code false} si no se encuentra.
+     */
     public boolean eliminarCuenta(int id) {
         String sql = "DELETE FROM cuentas WHERE id = ?";
 
@@ -73,6 +93,12 @@ public class CuentaRepositorio {
         }
     }
 
+    /**
+     * Obtiene las cuentas asociadas a un usuario específico.
+     *
+     * @param idUsuario ID del usuario.
+     * @return Lista de cuentas del usuario.
+     */
     public List<Cuenta> obtenerCuentasPorUsuarioId(int idUsuario) throws NombreCuentaException {
         List<Cuenta> cuentas = new ArrayList<>();
         String sql = "SELECT * FROM cuentas WHERE id_usuario = ?";

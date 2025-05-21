@@ -11,10 +11,23 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Repositorio encargado de gestionar el acceso a datos relacionados con usuarios.
+ */
 public class UsuarioRepositorio {
 
     public UsuarioRepositorio(){}
 
+
+    /**
+     * Obtiene todos los usuarios registrados.
+     *
+     * @return Lista de usuarios.
+     * @throws ContrasenaException Si la nueva contraseña no cumple con los requisitos.
+     * @throws DniException Si es Dni es inválido.
+     * @throws @NombreUsuarioException Si el nuevo nombre de usuario no cumple con los requisitos.
+     * @throws @NombreApellidoException Si el nuevo nombre y apellido no cumplen con los requisitos.
+     */
     public List<Usuario> obtenerUsuarios() throws ContrasenaException, DniException, NombreUsuarioException, NombreApellidoException {
         String sql = "SELECT id, nombre_usuario, contrasena, dni, nombre, primer_apellido, segundo_apellido FROM USUARIOS";
 
@@ -37,6 +50,13 @@ public class UsuarioRepositorio {
         }
     }
 
+
+    /**
+     * Registra un nuevo usuario.
+     *
+     * @param usuario Objeto {@code Usuario} a registrar.
+     * @return El usuario registrado.
+     */
     public Usuario registrarUsuario(Usuario usuario) {
         String sql = "INSERT INTO usuarios (nombre_usuario, contrasena, dni, nombre, primer_apellido, segundo_apellido) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -62,6 +82,12 @@ public class UsuarioRepositorio {
         }
     }
 
+    /**
+     * Elimina un usuario según su ID.
+     *
+     * @param id ID del usuario a eliminar.
+     * @return {@code true} si fue eliminado correctamente, {@code false} si no se encontró.
+     */
     public boolean eliminarUsuario(int id) {
         String sql = "DELETE FROM usuarios WHERE id = ?";
 
@@ -79,6 +105,16 @@ public class UsuarioRepositorio {
         }
     }
 
+    /**
+     * Devuelve un objeto {@code Usuario} a partir de un objeto {@code ResultSet}.
+     *
+     * @return Usuario
+     * @param rs ResultSet.
+     * @throws ContrasenaException Si la nueva contraseña no cumple con los requisitos.
+     * @throws DniException Si es Dni es inválido.
+     * @throws @NombreUsuarioException Si el nuevo nombre de usuario no cumple con los requisitos.
+     * @throws @NombreApellidoException Si el nuevo nombre y apellido no cumplen con los requisitos.
+     */
     private Usuario mapearUsuarios(ResultSet rs) throws NombreUsuarioException, ContrasenaException, DniException, SQLException, NombreApellidoException{
     	int id = rs.getInt("id");
         String nombreUsuario = rs.getString("nombre_usuario");

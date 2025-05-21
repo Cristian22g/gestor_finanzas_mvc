@@ -1,0 +1,10 @@
+module:com.finanzas.gestor_finanzas
+com.finanzas.gestor_finanzas.dao
+com.finanzas.gestor_finanzas.excepciones
+com.finanzas.gestor_finanzas.interfaces
+com.finanzas.gestor_finanzas.modelo
+com.finanzas.gestor_finanzas.repositorio
+com.finanzas.gestor_finanzas.servicio
+com.finanzas.gestor_finanzas.utilidades
+com.finanzas.gestor_finanzas.validaciones
+com.finanzas.gestor_finanzas.vista

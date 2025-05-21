@@ -5,17 +5,75 @@ import com.finanzas.gestor_finanzas.utilidades.Utilidades;
 import com.finanzas.gestor_finanzas.excepciones.*;
 import com.finanzas.gestor_finanzas.validaciones.Validaciones;
 
+import java.util.List;
 import java.util.Objects;
 
+/**
+ * Clase que representa a un usuario del sistema.
+ */
 public class Usuario {
-    private int id;
-    private String nombreUsuario;
-    private String contrasena;
-    private String dni;
-    private String nombre;
-    private String primerApellido, segundoApellido;
 
-    //CONSTRUCTOR COMPLETO
+    /**
+     * Identificador único del usuario.
+     */
+    private int id;
+
+    /**
+     * Nombre de usuario (único).
+     */
+    private String nombreUsuario;
+
+    /**
+     * Contraseña del usuario.
+     */
+    private String contrasena;
+
+    /**
+     * Documento Nacional de Identidad del usuario.
+     */
+    private String dni;
+
+    /**
+     * Nombre de pila del usuario.
+     */
+    private String nombre;
+
+    /**
+     * Primer apellido del usuario.
+     */
+    private String primerApellido;
+
+    /**
+     * Segundo apellido del usuario.
+     */
+    private String segundoApellido;
+
+    /**
+     * Lista de cuentas financieras asociadas al usuario.
+     */
+    private List<Cuenta> cuentas;
+
+    /**
+     * Lista de transacciones financieras del usuario.
+     */
+    private List<Transaccion> transacciones;
+
+
+    /**
+     * Constructor de usuario con ID especificado.
+     *
+     * @param id Identificador único del usuario.
+     * @param nombreUsuario Nombre de usuario (debe cumplir con los criterios definidos).
+     * @param contrasena Contraseña del usuario (debe ser segura y válida).
+     * @param dni Documento Nacional de Identidad.
+     * @param nombre Nombre del usuario.
+     * @param primerApellido Primer apellido del usuario.
+     * @param segundoApellido Segundo apellido del usuario.
+     * @throws NombreUsuarioException Si el nombre de usuario no es válido.
+     * @throws ContrasenaException Si la contraseña no cumple los requisitos.
+     * @throws DniException Si el DNI no es válido.
+     * @throws NombreApellidoException Si el nombre o apellidos no son válidos.
+     */
     public Usuario(int id, String nombreUsuario, String contrasena, String dni, String nombre, String primerApellido, String segundoApellido) throws NombreUsuarioException, ContrasenaException, DniException, NombreApellidoException{
         setId(id);
         setNombreUsuario(nombreUsuario);
@@ -25,7 +83,21 @@ public class Usuario {
         setPrimerApellido(primerApellido);
         setSegundoApellido(segundoApellido);
     }
-    // CONSTRUCTOR SIN ID (a 0)
+
+    /**
+     * Constructor de usuario sin especificar el ID (por defecto se establece en 0).
+     *
+     * @param nombreUsuario Nombre de usuario.
+     * @param contrasena Contraseña del usuario.
+     * @param dni Documento Nacional de Identidad.
+     * @param nombre Nombre del usuario.
+     * @param primerApellido Primer apellido del usuario.
+     * @param segundoApellido Segundo apellido del usuario.
+     * @throws NombreUsuarioException Si el nombre de usuario no es válido.
+     * @throws ContrasenaException Si la contraseña no cumple los requisitos.
+     * @throws DniException Si el DNI no es válido.
+     * @throws NombreApellidoException Si el nombre o apellidos no son válidos.
+     */
     public Usuario(String nombreUsuario, String contrasena, String dni, String nombre, String primerApellido, String segundoApellido) throws ContrasenaException, DniException, NombreUsuarioException, NombreApellidoException{
         this(0, nombreUsuario, contrasena, dni, nombre, primerApellido, segundoApellido);
     }
@@ -114,12 +186,4 @@ public class Usuario {
 				+ ", nombre=" + nombre + ", primerApellido=" + primerApellido + ", segundoApellido=" + segundoApellido
 				+ "]";
 	}
-	
-	/*
-    //TO STRING
-    @Override
-    public String toString() {
-        return nombreUsuario;
-    }
-    */
 }

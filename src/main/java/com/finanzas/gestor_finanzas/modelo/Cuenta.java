@@ -5,16 +5,41 @@ import com.finanzas.gestor_finanzas.excepciones.CantidadException;
 import com.finanzas.gestor_finanzas.excepciones.NombreCuentaException;
 import com.finanzas.gestor_finanzas.validaciones.Validaciones;
 
+/**
+ * Clase que representa una cuenta financiera.
+ */
 public class Cuenta {
-    private int id;
-    private int idUsuario;
-    private String nombreCuenta;
-    private double saldoActual;
-    
 
-    public Cuenta() {}
-    
-    // CONSTRUCTOR COMPLETO
+    /**
+     * Identificador único de la cuenta.
+     */
+    private int id;
+
+    /**
+     * Id del usuario propietario de la cuenta.
+     */
+    private int idUsuario;
+
+    /**
+     * Nombre de la cuenta (por ejemplo: "Cuenta corriente", "Ahorros").
+     */
+    private String nombreCuenta;
+
+    /**
+     * Saldo actual disponible en la cuenta.
+     */
+    private double saldoActual;
+
+    /**
+     * Constructor completo de una cuenta con ID especificado.
+     *
+     * @param id Identificador único de la cuenta.
+     * @param idUsuario ID del usuario propietario de la cuenta.
+     * @param nombreCuenta Nombre asignado a la cuenta (por ejemplo, "Ahorros", "Nomina").
+     * @param saldoActual Saldo actual disponible en la cuenta.
+     * @throws NombreCuentaException Si el nombre de la cuenta no es válido (vacío, nulo o duplicado según reglas del sistema).
+     * @throws CantidadException Si el saldo inicial no es válido (por ejemplo, negativo).
+     */
     public Cuenta(int id, int idUsuario, String nombreCuenta, double saldoActual) throws NombreCuentaException, CantidadException {
        	setId(id);
         setIdUsuario(idUsuario);
@@ -22,7 +47,15 @@ public class Cuenta {
         setSaldoActual(saldoActual);
     }
 
-    // CONSTRUCTOR SIN ID (a 0)
+    /**
+     * Constructor de una cuenta sin ID especificado (por defecto se asigna 0).
+     *
+     * @param idUsuario ID del usuario propietario.
+     * @param nombreCuenta Nombre de la cuenta.
+     * @param saldoActual Saldo inicial.
+     * @throws NombreCuentaException Si el nombre de la cuenta no es válido.
+     * @throws CantidadException Si el saldo inicial no es válido.
+     */
     public Cuenta(int idUsuario, String nombreCuenta, double saldoActual) throws NombreCuentaException, CantidadException {
         this(0, idUsuario, nombreCuenta, saldoActual);
     }
