@@ -24,7 +24,7 @@
 
             <VBox alignment="BOTTOM_LEFT" spacing="5" VBox.vgrow="ALWAYS">
                 <Button fx:id="nuevaCuentaBtn" text="Nueva Cuenta" styleClass="boton-lateral" onAction="#cambiarEscenaNuevaCuenta"/>
-                <Button fx:id="eliminarCuentaBtn" text="Eliminar Cuenta" styleClass="boton-lateral"/>
+                <Button fx:id="eliminarCuentaBtn" text="Eliminar Cuenta" styleClass="boton-lateral" onAction="#eliminarCuenta"/>
             </VBox>
         </VBox>
     </left>

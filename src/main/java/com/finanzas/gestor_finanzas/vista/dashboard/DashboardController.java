@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.finanzas.gestor_finanzas.servicio.CuentaServicio;
 import com.finanzas.gestor_finanzas.servicio.TransaccionServicio;
@@ -82,6 +83,7 @@ public class DashboardController {
         anadirCuentas();
 
         if(cuentas.size() == 3) nuevaCuentaBtn.setDisable(true);
+        eliminarCuentaBtn.setDisable(true);
 
         if(cuentasBotones != null || !cuentasBotones.isEmpty()){
             eventoCuentas();
@@ -108,7 +110,7 @@ public class DashboardController {
     private void anadirCuentas(){
         try{
             this.cuentasBotones = new ArrayList<>();
-
+            cuentasBox.getChildren().clear();
             for(Cuenta cuenta : cuentas){
                 Button cuentaBtn = new Button(cuenta.getNombreCuenta());
                 cuentaBtn.getStyleClass().add("boton-cuenta");
@@ -131,6 +133,7 @@ public class DashboardController {
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());;
                 }
+                eliminarCuentaBtn.setDisable(false);
                 mensajeLabelTransaccion.setText("");
                 transacciones = buscarTransacciones();
                 if(transacciones == null) return;
@@ -267,4 +270,28 @@ public class DashboardController {
         stage.show();
     }
 
+    public void eliminarCuenta() {
+        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacion.setTitle("Eliminar cuenta");
+        confirmacion.setHeaderText("¿Estás seguro de que deseas eliminar esta cuenta?");
+        confirmacion.setContentText("Esta acción no se puede deshacer.");
+        Optional<ButtonType> resultado = confirmacion.showAndWait();
+
+        Alert aviso = new Alert(Alert.AlertType.INFORMATION);
+
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            CuentaServicio cs = new CuentaServicio();
+            cs.eliminarCuenta(cuentaActual.getId());
+            cs =null;
+            aviso.setTitle("Cuenta eliminada");
+            aviso.setContentText("La cuenta se eliminó correctamente.");
+            Optional<ButtonType> eliminada = aviso.showAndWait();
+            cargarDashboard(usuario);
+            nuevaCuentaBtn.setDisable(false);
+        } else {
+            aviso.setTitle("Cuenta no eliminada");
+            aviso.setContentText("La cuenta no se elimino.");
+            Optional<ButtonType> eliminada = aviso.showAndWait();
+        }
+    }
 }
