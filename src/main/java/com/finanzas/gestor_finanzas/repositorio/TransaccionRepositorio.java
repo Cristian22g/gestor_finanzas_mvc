@@ -83,19 +83,20 @@ public class TransaccionRepositorio {
      * @return La transacción registrada.
      */
     public Transaccion registrarTransaccion(Transaccion transaccion) {
-        String sql = "INSERT INTO transacciones (id_usuario, monto, tipo, categoria, descripcion, fecha) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO transacciones (id_usuario,id_cuenta, monto, tipo, categoria, descripcion, fecha) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (
                 Connection conn = DBConnection.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)
         ) {
             ps.setInt(1, transaccion.getIdUsuario());
-            ps.setDouble(2, transaccion.getMonto());
-            ps.setString(3, transaccion.getTipo());
-            ps.setString(4, transaccion.getCategoria());
-            ps.setString(5, transaccion.getDescripcion());
-            ps.setDate(6, java.sql.Date.valueOf(transaccion.getFecha()));
+            ps.setInt(2, transaccion.getIdCuenta());
+            ps.setDouble(3, transaccion.getMonto());
+            ps.setString(4, transaccion.getTipo());
+            ps.setString(5, transaccion.getCategoria());
+            ps.setString(6, transaccion.getDescripcion());
+            ps.setDate(7, java.sql.Date.valueOf(transaccion.getFecha()));
 
             int filas = ps.executeUpdate();
             if (filas == 0) return null;
@@ -175,8 +176,8 @@ public class TransaccionRepositorio {
      * Obtiene transacciones de un usuario en un rango de fechas.
      *
      * @param idUsuario ID del usuario.
-     * @param desde Fecha de inicio.
-     * @param hasta Fecha de fin.
+     * @param fechaInicio Fecha de inicio.
+     * @param fechaFin Fecha de fin.
      * @return Lista de transacciones en ese rango.
      */
     public List<Transaccion> obtenerPorFechaUsuario(int idUsuario, LocalDate fechaInicio, LocalDate fechaFin) {
@@ -260,6 +261,30 @@ public class TransaccionRepositorio {
         }
     }
 
+    public List<Transaccion> filtrarPorCuentaUsuario(int idUsuario, int idCuenta) {
+        String sql = "SELECT * FROM transacciones WHERE id_usuario = ? AND id_cuenta = ? ORDER BY FECHA DESC;";
+        List<Transaccion> transacciones = new ArrayList<>();
+
+        try (
+                Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+            ps.setInt(1, idUsuario);
+            ps.setInt(2, idCuenta);
+
+            try(ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    transacciones.add(mapearTransaccion(rs));
+                }
+            }
+
+        } catch (SQLException | CantidadException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return transacciones;
+    }
+
 /**
  * Devuelve un objeto {@code Transaccion} a partir de un objeto {@code ResultSet}.
  *
@@ -277,6 +302,4 @@ public class TransaccionRepositorio {
 
         return new Transaccion(id, idUsuario, monto, tipo, categoria, descripcion, fecha);
     }
-
-
 }

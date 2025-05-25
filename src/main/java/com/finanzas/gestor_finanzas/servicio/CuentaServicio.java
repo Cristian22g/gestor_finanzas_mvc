@@ -66,6 +66,10 @@ public class CuentaServicio implements ICuentaServicio{
 		return repositorio.eliminarCuenta(id);
 	}
 
+	public boolean cambiarSaldo(int id_cuenta, double nuevoSaldo){
+		return repositorio.cambioSaldo(id_cuenta, nuevoSaldo);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

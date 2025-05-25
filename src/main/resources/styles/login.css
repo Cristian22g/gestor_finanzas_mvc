@@ -1,0 +1,14 @@
+.login-contenedor{
+    -fx-background-color: white;
+    -fx-max-width: 300px;
+    -fx-max-height: 300px;
+    -fx-padding: 20px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);
+}
+
+.campo-login{
+        -fx-pref-width: 250px;
+        -fx-max-width: 250px;
+        -fx-min-width: 250px;
+}

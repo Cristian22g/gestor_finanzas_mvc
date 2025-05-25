@@ -46,8 +46,8 @@ public class TransaccionServicio  implements ITransaccionServicio {
      * {@inheritDoc}
      */
     @Override
-    public Transaccion registrarTransaccion(int idUsuario, double monto, String tipo, String categoria, String descripcion, LocalDate fecha) throws CantidadException {
-        Transaccion transaccion = new Transaccion(idUsuario, monto, tipo, categoria, descripcion, fecha);
+    public Transaccion registrarTransaccion(int idUsuario, int idCuenta, double monto, String tipo, String categoria, String descripcion, LocalDate fecha) throws CantidadException {
+        Transaccion transaccion = new Transaccion(idUsuario, idCuenta, monto, tipo, categoria, descripcion, fecha);
         return repositorio.registrarTransaccion(transaccion);
     }
 
@@ -97,4 +97,8 @@ public class TransaccionServicio  implements ITransaccionServicio {
 	public List<Transaccion> filtrarPorFecha(LocalDate desde, LocalDate hasta){
 		return repositorio.obtenerPorFecha(desde, hasta);
 	}
+
+    public List<Transaccion> filtrarPorCuentaUsuario(int idUsuario, int idCuenta){
+        return repositorio.filtrarPorCuentaUsuario(idUsuario, idCuenta);
+    }
 }

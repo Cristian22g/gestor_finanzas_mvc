@@ -4,34 +4,41 @@ package com.finanzas.gestor_finanzas.vista;
 import com.finanzas.gestor_finanzas.modelo.Usuario;
 import com.finanzas.gestor_finanzas.servicio.UsuarioServicio;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.util.List;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) {
-        UsuarioServicio usuarioServicio = new UsuarioServicio();
+    public void start(Stage stage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/finanzas/gestor_finanzas/vista/login/Login.fxml"));
 
-        try {
-            List<Usuario> usuarios = usuarioServicio.obtenerTodos();
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setMaximized(true);
+        stage.setResizable(false);
+        scene.getStylesheets().addAll(
+                getClass().getResource("/styles/general.css").toExternalForm(),
+                getClass().getResource("/styles/login.css").toExternalForm()
+        );
 
-            if (usuarios.isEmpty()) {
-                System.out.println("No hay usuarios registrados.");
-            } else {
-                System.out.println("Lista de usuarios:");
-                for (Usuario usuario : usuarios) {
-                    System.out.println(usuario);
-                }
-            }
-
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
+        stage.setTitle("Login");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) {
-        //launch(args);
-        System.out.println("Hola");
+        /*
+        UsuarioServicio us = new UsuarioServicio();
+        try {
+            List<Usuario> usuarios = us.obtenerTodos();
+            usuarios.forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        */
+
+        launch(args);
     }
 }

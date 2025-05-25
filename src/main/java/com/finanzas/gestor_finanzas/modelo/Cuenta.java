@@ -30,6 +30,9 @@ public class Cuenta {
      */
     private double saldoActual;
 
+    public Cuenta() {
+    }
+
     /**
      * Constructor completo de una cuenta con ID especificado.
      *

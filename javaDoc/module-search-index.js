@@ -1,1 +1,0 @@
-moduleSearchIndex = [{"l":"com.finanzas.gestor_finanzas"}];updateSearchResults();

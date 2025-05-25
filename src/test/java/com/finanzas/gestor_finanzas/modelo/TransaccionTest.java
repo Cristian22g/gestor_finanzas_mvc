@@ -16,7 +16,7 @@ class TransaccionTest {
     @BeforeEach
     void setUp() throws CantidadException {
         transaccionCompleta = new Transaccion(1, 10, 100.5, "INGRESO", "Salario", "Pago mensual", LocalDate.of(2024, 5, 10));
-        transaccionSinId = new Transaccion(10, 50.0, "GASTO", "Comida", "Cena en restaurante", LocalDate.of(2024, 5, 12));
+        transaccionSinId = new Transaccion(10,2, 50.0, "GASTO", "Comida", "Cena en restaurante", LocalDate.of(2024, 5, 12));
     }
 
     @Test
@@ -62,12 +62,12 @@ class TransaccionTest {
 
     @Test
     void testMontoNegativoNoPermitido() {
-       assertThrows(CantidadException.class, () -> new Transaccion(5, -99.0, "GASTO", "Prueba", "Descripción", LocalDate.now()));
+       assertThrows(CantidadException.class, () -> new Transaccion(5,2, -99.0, "GASTO", "Prueba", "Descripción", LocalDate.now()));
     }
 
     @Test
     void testCamposNullPosibles() throws CantidadException {
-        Transaccion t = new Transaccion(1, 100.0, null, null, null, LocalDate.now());
+        Transaccion t = new Transaccion(1,2, 100.0, null, null, null, LocalDate.now());
         assertNull(t.getTipo());
         assertNull(t.getCategoria());
         assertNull(t.getDescripcion());

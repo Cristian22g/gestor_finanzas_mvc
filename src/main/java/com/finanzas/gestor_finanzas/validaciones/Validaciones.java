@@ -59,7 +59,7 @@ public class Validaciones {
      * @return {@code true} si el nombre es válido, {@code false} en caso contrario.
      */
     public static boolean validarNombreCuenta(String nombreCuenta){
-    	return nombreCuenta.matches("^[a-zA-Z0-9 ]{4,20}$");
+    	return nombreCuenta.matches("^[a-zA-ZÁÉÍÓÚáéíóúÑñü ]{4,20}$");
     }
 
     /**
@@ -73,7 +73,7 @@ public class Validaciones {
         if (nombre == null || nombre.isEmpty()) {
             return false;
         }
-    	return nombre.matches("^[a-zA-ZÁÉÍÓÚáéíóú]{2,20}$");
+    	return nombre.matches("^[a-zA-ZÁÉÍÓÚáéíóúÑñü]{2,20}$");
     }
 
 }

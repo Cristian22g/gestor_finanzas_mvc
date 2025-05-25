@@ -125,8 +125,26 @@ public class CuentaRepositorio {
     	return new Cuenta(
                 rs.getInt("id"),
                 rs.getInt("id_usuario"),
-                rs.getString("numero_cuenta"),
+                rs.getString("nombre_cuenta"),
                 rs.getDouble("saldo_actual"));
+    }
+
+    public boolean cambioSaldo(int idCuenta, double nuevoSaldo) {
+        String sql = "UPDATE CUENTAS SET  SALDO_ACTUAL = ? WHERE ID = ?";
+
+        try(
+                Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ){
+            ps.setDouble(1, nuevoSaldo);
+            ps.setInt(2, idCuenta);
+
+            ps.executeUpdate();
+
+        }catch (SQLException e){
+            return false;
+        }
+        return true;
     }
 }
 

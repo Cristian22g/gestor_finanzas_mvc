@@ -1,0 +1,28 @@
+.fondo {
+    -fx-background-color: #d9eeff;
+}
+
+.panel-cuentas {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}
+
+.panel-transaccion {
+    -fx-background-color: #f0f8ff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.boton-accion {
+    -fx-background-color: #0078D7;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-pref-width: 180;
+}
+
+.titulo-seccion {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}

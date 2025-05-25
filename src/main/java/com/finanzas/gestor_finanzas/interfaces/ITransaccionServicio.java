@@ -40,7 +40,7 @@ public interface ITransaccionServicio {
      * @return La transacción registrada.
      * @throws CantidadException Si la cantidad no es válida.
      */
-    Transaccion registrarTransaccion(int idUsuario, double monto, String tipo, String categoria, String descripcion, LocalDate fecha) throws CantidadException;
+    Transaccion registrarTransaccion(int idUsuario, int idCuenta, double monto, String tipo, String categoria, String descripcion, LocalDate fecha) throws CantidadException;
 
     /**
      * Elimina una transacción por su ID.

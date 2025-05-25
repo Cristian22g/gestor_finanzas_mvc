@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml" fx:controller="com.finanzas.gestor_finanzas.vista.dashboard.DashboardController"
+            styleClass="fondo">
+
+    <!-- BOTONES CUENTAS -->
+    <left>
+        <VBox spacing="10" prefWidth="200" styleClass="panel-izquierdo">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label fx:id="bienvenida"/>
+            <Label text="Cuentas" styleClass="titulo-seccion"/>
+
+            <VBox fx:id="cuentasBox" spacing="10" alignment="TOP_LEFT" VBox.vgrow="ALWAYS"/>
+            <Label fx:id="mensajeLabelCuentas" textFill="red"/>
+
+            <VBox alignment="BOTTOM_LEFT" spacing="5" VBox.vgrow="ALWAYS">
+                <Button fx:id="nuevaCuentaBtn" text="Nueva Cuenta" styleClass="boton-lateral" onAction="#cambiarEscenaNuevaCuenta"/>
+                <Button fx:id="eliminarCuentaBtn" text="Eliminar Cuenta" styleClass="boton-lateral"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- TABLA TRANSACCIONES -->
+    <center>
+        <VBox spacing="10" styleClass="panel-central">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <HBox alignment="CENTER" spacing="10">
+                <Label text="Transacciones" styleClass="titulo-seccion"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="saldoTotal" text=""/>
+            </HBox>
+
+            <TableView fx:id="transaccionesTabla" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colMonto" text="Monto"/>
+                    <TableColumn fx:id="colTipo" text="Tipo"/>
+                    <TableColumn fx:id="colCategoria" text="Categoria"/>
+                    <TableColumn fx:id="colDescripcion" text="Descripción"/>
+                    <TableColumn fx:id="colFecha" text="Fecha"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+    <!-- REALIZAR TRANSACCION -->
+    <right>
+        <VBox spacing="10" styleClass="panel-derecho" prefWidth="250">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="Nueva Transacción" styleClass="titulo-seccion"/>
+            <TextField fx:id="montoField" promptText="Monto"/>
+            <ComboBox fx:id="tipoComboBox" promptText="Tipo">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="INGRESO"/>
+                        <String fx:value="GASTO"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <TextField fx:id="categoriaField" promptText="Categoria"/>
+            <TextField fx:id="descripcionField" promptText="Descripción"/>
+
+            <Label fx:id="mensajeLabelTransaccion" textFill="red"/>
+            <Button fx:id="realizarTransaccionBtn" text="Realizar" styleClass="boton-principal"/>
+        </VBox>
+    </right>
+
+</BorderPane>

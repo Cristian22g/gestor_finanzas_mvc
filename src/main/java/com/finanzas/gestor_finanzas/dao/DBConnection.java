@@ -22,7 +22,7 @@ public class DBConnection {
     /**
      * Constructor vacío. No se necesita crear instancias de esta clase.
      */
-    public DBConnection(){}
+    private DBConnection(){}
 
     /**
      * Establece y devuelve una conexión activa con la base de datos.

@@ -44,6 +44,7 @@ public class Transaccion {
      */
     private LocalDate fecha;
 
+    private int idCuenta;
 
     /**
      * Constructor de una transacción con ID especificado.
@@ -57,7 +58,7 @@ public class Transaccion {
      * @param fecha Fecha en que se realizó la transacción.
      * @throws CantidadException Si el monto no es válido (por ejemplo, cero o negativo cuando no corresponde).
      */
-    public Transaccion(int id, int idUsuario, double monto, String tipo,
+    public Transaccion(int id, int idUsuario, int idCuenta, double monto, String tipo,
                        String categoria, String descripcion, LocalDate fecha) throws CantidadException {
         setId(id);
         setIdUsuario(idUsuario);
@@ -66,6 +67,7 @@ public class Transaccion {
         setCategoria(categoria);
         setDescripcion(descripcion);
         setFecha(fecha);
+        setIdCuenta(idCuenta);
     }
 
     /**
@@ -79,9 +81,9 @@ public class Transaccion {
      * @param fecha Fecha en que se realizó.
      * @throws CantidadException Si el monto no es válido.
      */
-    public Transaccion(int idUsuario, double monto, String tipo,
+    public Transaccion(int idUsuario, int idCuenta, double monto, String tipo,
                        String categoria, String descripcion, LocalDate fecha) throws CantidadException {
-        this(0, idUsuario, monto, tipo, categoria, descripcion, fecha);
+        this(0, idUsuario, idCuenta, monto, tipo, categoria, descripcion, fecha);
     }
 
     // Getters y setters
@@ -110,6 +112,14 @@ public class Transaccion {
         return descripcion;
     }
 
+    public int getIdCuenta() {
+        return idCuenta;
+    }
+
+    public void setIdCuenta(int idCuenta) {
+        this.idCuenta = idCuenta;
+    }
+
     public LocalDate getFecha() {
         return fecha;
     }
@@ -123,6 +133,7 @@ public class Transaccion {
     }
 
     public void setMonto(double monto) throws  CantidadException{
+        if(monto == 0) throw  new CantidadException("El monto debe ser diferente a 0.");
         this.monto = monto;
 
     }

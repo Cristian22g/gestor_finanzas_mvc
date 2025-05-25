@@ -122,7 +122,7 @@ public class Usuario {
 	}
 	public void setPrimerApellido(String primerApellido) throws NombreApellidoException {
         boolean esCorrecto = Validaciones.validarNombreOapellido(primerApellido);
-        if(!esCorrecto) throw  new NombreApellidoException("Apellido inválido.");
+        if(!esCorrecto) throw new NombreApellidoException("Apellido inválido.");
         this.primerApellido = Utilidades.ordenarUpperLower(primerApellido);
 	}
 
@@ -132,7 +132,7 @@ public class Usuario {
 
 	public void setSegundoApellido(String segundoApellido) throws NombreApellidoException {
         boolean esCorrecto = Validaciones.validarNombreOapellido(segundoApellido);
-        if(!esCorrecto) throw  new NombreApellidoException("Apellido inválido.");
+        if(!esCorrecto) throw new NombreApellidoException("Apellido inválido.");
 		this.segundoApellido = Utilidades.ordenarUpperLower(segundoApellido);
 	}
 

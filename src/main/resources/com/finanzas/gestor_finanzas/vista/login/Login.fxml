@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane styleClass="fondo" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.finanzas.gestor_finanzas.vista.login.LoginController">
+    <VBox alignment="center" fx:id="loginContenedor" styleClass="login-contenedor" spacing="10">
+        <Label text="Iniciar Sesión" style="-fx-font-size: 18px;"/>
+        <TextField fx:id="nombreUsuarioField" promptText="Nombre de usuario" styleClass="campo-login"/>
+        <PasswordField fx:id="contrasenaField" promptText="Contraseña" styleClass="campo-login"/>
+        <Button text="Iniciar sesión" onAction="#login"/>
+        <Label fx:id="mensajeLabel" textFill="red"/>
+    </VBox>
+</StackPane>
